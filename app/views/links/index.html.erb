@@ -13,6 +13,7 @@
         <td><%= link.title %></td>
         <td><%= link.url %></td>
         <td><%= link_to "edit", edit_link_path(link) %></td>
+        <td><%= button_to "delete", link_path(link), method: :delete %></td>
       </tr>
     <% end %>
     </tbody>
