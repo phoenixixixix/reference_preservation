@@ -1,4 +1,6 @@
 <%= form_with model: @link do |f| %>
+  <%= render "shared/error_messages", resource: @link %>
+
   <div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: "form-control" %>
