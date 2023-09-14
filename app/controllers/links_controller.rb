@@ -1,6 +1,5 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: %w(edit update destroy)
-  before_action :link_params, only: %w(create update)
+  before_action :set_link, only: %i[ edit update destroy ]
 
   def index
     @links = Link.all
