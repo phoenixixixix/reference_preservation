@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :links
-
-  get "/home", to: "pages#home"
+  resources :links, except: %w(show)
   root "pages#home"
 end
