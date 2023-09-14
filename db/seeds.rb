@@ -6,6 +6,14 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+5.times do
+  Group.create(title: Faker::Educator.subject)
+end
+
 10.times do
-  Link.create(title: Faker::App.name, url: "https://#{Faker::Internet.domain_name}")
+  Link.create(
+    title: Faker::App.name,
+    url: "https://#{Faker::Internet.domain_name}",
+    group_id: Group.ids.sample
+  )
 end
