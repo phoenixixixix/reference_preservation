@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Links", type: :request do
   describe "POST /links" do
@@ -58,7 +58,7 @@ RSpec.describe "Links", type: :request do
     it "deletes link record" do
       subject
 
-      expect { delete "/links/#{subject.id}" }.to change { Link.count }
+      expect { delete "/links/#{subject.id}" }.to change { Link.count }.by(-1)
       expect { subject.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end

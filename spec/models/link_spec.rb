@@ -40,4 +40,24 @@ RSpec.describe Link, type: :model do
       end
     end
   end
+
+  describe "relations" do
+    describe "belonging to Group" do
+      let(:belonging_group) { create(:group) }
+
+      it "creates links that belongs to group" do
+        link = create(:link, group: belonging_group)
+
+        expect(link.group).to eq(belonging_group)
+      end
+
+      it "creates links from Group object" do
+        link_attributes = { title: "FromGroupObject", url: "https://hello.com"}
+
+        belonging_group.links.create(link_attributes)
+
+        expect(belonging_group.links.pluck(:title)).to include(link_attributes[:title])
+      end
+    end
+  end
 end

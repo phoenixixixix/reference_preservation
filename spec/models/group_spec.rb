@@ -26,4 +26,16 @@ RSpec.describe Group, type: :model do
       end
     end
   end
+
+  describe "relations" do
+    describe "has many Links" do
+      subject { create(:group) }
+
+      it "returns associated links" do
+        associated_link = create(:link, group: subject)
+
+        expect(subject.links).to include(associated_link)
+      end
+    end
+  end
 end
