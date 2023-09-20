@@ -1,65 +1,105 @@
 require "rails_helper"
 
 RSpec.describe "Links", type: :request do
-  describe "POST /links" do
-    let(:link_params) { { title: "Linko", url: "https://linko.com"} }
+  let(:valid_attributes) { { title: "Link", url: "https://link.com"} }
 
+  let(:invalid_attributes) { { title: "", url: "" } }
+
+  describe "GET /index" do
+    it "renders a successful response" do
+      get links_url
+      expect(response).to be_successful
+    end
+  end
+
+  describe "GET /new" do
+    it "renders a successful response" do
+      get new_link_url
+      expect(response).to be_successful
+    end
+  end
+
+  describe "GET /edit" do
+    it "renders a successful response" do
+      link = create(:link)
+      get edit_link_url(link)
+      expect(response).to be_successful
+    end
+  end
+
+  describe "POST /create" do
     it "creates link record" do
       expect {
-        post "/links", params: { link: link_params }
+        post links_url, params: { link: valid_attributes }
       }.to change { Link.count }.by(1)
     end
 
     it "redirects to index links path" do
-      post "/links", params: { link: link_params }
-
-      expect(response).to redirect_to("/links")
+      post links_url, params: { link: valid_attributes }
+      expect(response).to redirect_to(links_url)
     end
 
     context "with invalid params" do
-      let(:invalid_link_params) { { title: "", url: "" } }
-      before { post "/links", params: { link: invalid_link_params } }
+      it "does not create a new Link" do
+        expect {
+          post links_url, params: { link: invalid_attributes }
+        }.to change(Link, :count).by(0)
+      end
 
-      it { expect(response).to render_template(:new) }
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it "renders new template" do
+        post links_url, params: { link: invalid_attributes }
+        expect(response).to render_template(:new)
+      end
+
+      it "respond with 422 status" do
+        post links_url, params: { link: invalid_attributes }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
   end
 
-  describe "PUT /links/:id" do
-    let(:updated_link_params) { { title: "Linko", url: "http://linko.com"} }
+  describe "PATCH /update" do
+    let(:new_attributes) { { title: "Linko", url: "http://linko.com"} }
+
     subject { create(:link) }
 
     it "updates link record" do
-      put "/links/#{subject.id}", params: { link: updated_link_params }
+      patch link_url(subject), params: { link: new_attributes }
       subject.reload
 
-      expect(subject.title).to eq(updated_link_params[:title])
-      expect(subject.url).to eq(updated_link_params[:url])
+      expect(subject.title).to eq(new_attributes[:title])
+      expect(subject.url).to eq(new_attributes[:url])
     end
 
     it "redirects to index links path" do
-      put "/links/#{subject.id}", params: { link: updated_link_params }
-
-      expect(response).to redirect_to("/links")
+      patch link_url(subject), params: { link: new_attributes }
+      expect(response).to redirect_to(links_url)
     end
 
     context "with invalid params" do
-      let(:invalid_link_params) { { title: "", url: "" } }
-      before { put "/links/#{subject.id}", params: { link: invalid_link_params } }
+      it "renders edit template" do
+        patch link_url(subject), params: { link: invalid_attributes }
+        expect(response).to render_template(:edit)
+      end
 
-      it { expect(response).to render_template(:edit) }
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it "respond with 422 status" do
+        patch link_url(subject), params: { link: invalid_attributes }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
   end
 
-  describe "DELETE /links/:id" do
-    subject { create(:link) }
+  describe "DELETE /destroy" do
+    let!(:link) { create(:link) }
 
     it "deletes link record" do
-      subject
+      expect { delete link_url(link) }.to change { Link.count }.by(-1)
+      expect { link.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
 
-      expect { delete "/links/#{subject.id}" }.to change { Link.count }.by(-1)
-      expect { subject.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    it "redirects to links list" do
+      delete link_url(link)
+      expect(response).to redirect_to(links_url)
     end
   end
 end
