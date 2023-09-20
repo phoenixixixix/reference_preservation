@@ -29,12 +29,23 @@ RSpec.describe Group, type: :model do
 
   describe "relations" do
     describe "has many Links" do
-      subject { create(:group) }
-
       it "returns associated links" do
-        associated_link = create(:link, group: subject)
+        group = create(:group)
 
-        expect(subject.links).to include(associated_link)
+        associated_link = create(:link, group: group)
+
+        expect(group.links).to include(associated_link)
+      end
+
+      context "when delete group" do
+        it "nullifies group_id field in associated link" do
+          group = create(:group)
+          link = create(:link, group: group)
+
+          group.destroy
+
+          expect(link.reload.group).to be_nil
+        end
       end
     end
   end

@@ -6,6 +6,8 @@
     <%= f.text_field :title, class: "input input-bordered w-full" %>
   </div>
 
-  <%= f.submit "Save", class: "btn btn-primary mt-5" %>
-  <%= link_to "Back to groups", groups_path, class: "ml-2 btn" %>
+  <div class="mt-5">
+    <%= f.submit "Save", class: "btn btn-primary" %>
+    <%= link_to "Back to groups", groups_path, class: "ml-2 btn" %>
+  </div>
 <% end %>
