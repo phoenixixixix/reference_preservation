@@ -56,6 +56,15 @@ RSpec.describe "Links", type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
+
+    context "with group" do
+      let(:group) { create(:group) }
+
+      it "create a link that has a group" do
+        post links_url, params: { link: valid_attributes.merge(group_id: group.id) }
+        expect(Link.last.group).to eq(group)
+      end
+    end
   end
 
   describe "PATCH /update" do
@@ -69,6 +78,13 @@ RSpec.describe "Links", type: :request do
 
       expect(subject.title).to eq(new_attributes[:title])
       expect(subject.url).to eq(new_attributes[:url])
+    end
+
+    it "updates link's group" do
+      group = create(:group)
+      patch link_url(subject), params: { link: { group_id: group.id } }
+
+      expect(subject.reload.group).to eq(group)
     end
 
     it "redirects to index links path" do

@@ -1,5 +1,6 @@
 class LinksController < ApplicationController
   before_action :set_link, only: %i[ edit update destroy ]
+  before_action :groups_for_select, only: %i[ new edit ]
 
   def index
     @links = Link.all
@@ -40,6 +41,10 @@ class LinksController < ApplicationController
   end
 
   def link_params
-    params.require(:link).permit(:title, :url)
+    params.require(:link).permit(:title, :url, :group_id)
+  end
+
+  def groups_for_select
+    @groups_for_select = Group.pluck(:title, :id)
   end
 end
