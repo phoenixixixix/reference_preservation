@@ -13,14 +13,6 @@ RSpec.describe "/groups", type: :request do
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      group = Group.create! valid_attributes
-      get group_url(group)
-      expect(response).to be_successful
-    end
-  end
-
   describe "GET /new" do
     it "renders a successful response" do
       get new_group_url
@@ -46,7 +38,7 @@ RSpec.describe "/groups", type: :request do
 
       it "redirects to the created group" do
         post groups_url, params: { group: valid_attributes }
-        expect(response).to redirect_to(group_url(Group.last))
+        expect(response).to redirect_to(groups_url)
       end
     end
 
@@ -85,7 +77,7 @@ RSpec.describe "/groups", type: :request do
         patch group_url(group), params: { group: new_attributes }
         group.reload
 
-        expect(response).to redirect_to(group_url(group))
+        expect(response).to redirect_to(groups_url)
       end
     end
 

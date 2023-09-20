@@ -1,11 +1,8 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :set_group, only: %i[ edit update destroy ]
 
   def index
     @groups = Group.all
-  end
-
-  def show
   end
 
   def new
@@ -19,7 +16,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
 
     if @group.save
-      redirect_to group_url(@group), notice: "Group was successfully created."
+      redirect_to groups_url, notice: "Group was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +24,7 @@ class GroupsController < ApplicationController
 
   def update
     if @group.update(group_params)
-      redirect_to group_url(@group), notice: "Group was successfully updated."
+      redirect_to groups_url, notice: "Group was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
