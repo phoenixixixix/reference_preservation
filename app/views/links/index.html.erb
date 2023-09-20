@@ -1,21 +1,22 @@
-<div class="prose mb-5">
-<h1>Links List</h1>
-</div>
+<div class="w-full">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Links List</h1>
+    <%= link_to "Add link", new_link_path, class: "btn mb-5" %>
+  </div>
 
-<%= link_to "create new link", new_link_path, class: "btn btn-block mb-5" %>
-
-<div class="overflow-x-auto">
-  <table class="table">
-    <tbody>
-    <% @links.each.with_index(1) do |link, i| %>
-      <tr>
-        <td><%= i %></td>
-        <td><%= link.title %></td>
-        <td><%= link.url %></td>
-        <td><%= link_to "edit", edit_link_path(link) %></td>
-        <td><%= button_to "delete", link_path(link), method: :delete %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+  <div class="overflow-x-auto">
+    <table class="table">
+      <tbody>
+      <% @links.each.with_index(1) do |link, i| %>
+        <tr>
+          <td><%= i %></td>
+          <td><%= link.title %></td>
+          <td><%= link.url %></td>
+          <td><%= link_to "edit", edit_link_path(link) %></td>
+          <td><%= button_to "delete", link_path(link), method: :delete %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

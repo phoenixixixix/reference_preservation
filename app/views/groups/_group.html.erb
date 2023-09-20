@@ -1,12 +1,12 @@
 <div id="<%= dom_id group %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= group.title %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this group", group, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this group', edit_group_path(group), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+  <%= link_to edit_group_path(group) do %>
+    <div class="group shadow hover:shadow-xl rounded-lg p-2">
+      <div class="flex justify-center pt-4">
+        <span><%= group.title %></span>
+      </div>
+      <div class="flex justify-center invisible group-hover:visible">
+        <span class="text-sm font-semibold text-slate-400">edit</span>
+      </div>
+    </div>
   <% end %>
 </div>
