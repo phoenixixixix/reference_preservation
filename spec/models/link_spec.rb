@@ -60,4 +60,27 @@ RSpec.describe Link, type: :model do
       end
     end
   end
+
+  describe "scopes" do
+    describe "::by_group" do
+      let(:scope_group) { create(:group, title: "ScopeGroup") }
+
+      it "returns links referenced to specified group" do
+        link = create(:link, group: scope_group)
+        expect(Link.by_group(scope_group)).to include(link)
+      end
+
+      it "does not return links out of scope" do
+        unexpected_link = create(:link, :ungrouped)
+        expect(Link.by_group(scope_group)).not_to include(unexpected_link)
+      end
+
+      it "returns links by specified group id" do
+        link = create(:link, group: scope_group)
+        group_id = scope_group.id
+
+        expect(Link.by_group(group_id)).to include(link)
+      end
+    end
+  end
 end
