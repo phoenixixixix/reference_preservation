@@ -10,6 +10,31 @@ RSpec.describe "Links", type: :request do
       get links_url
       expect(response).to be_successful
     end
+
+    context "with filter by group" do
+      let!(:filter_group) { create(:group, title: "FilterGroup") }
+
+      it "renders a successful response" do
+        get links_url, params: { group: filter_group.title }
+        expect(response).to be_successful
+      end
+
+      it "lists links belonging to group in filter" do
+        link = create(:link, title: "ExpectedLink", group: filter_group)
+
+        get links_url, params: { group: filter_group.title }
+
+        expect(response.body).to include(link.title)
+      end
+
+      it "does not list links out of group in filter" do
+        unexpected_link = create(:link, title: "UnexpectedLink")
+
+        get links_url, params: { group: filter_group.title }
+
+        expect(response.body).to_not include(unexpected_link.title)
+      end
+    end
   end
 
   describe "GET /new" do

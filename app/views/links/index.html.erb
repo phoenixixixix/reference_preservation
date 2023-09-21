@@ -1,7 +1,20 @@
 <div class="w-full">
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between">
     <h1 class="font-bold text-4xl">Links List</h1>
-    <%= link_to "Add link", new_link_path, class: "btn mb-5" %>
+    <div>
+      <details class="dropdown">
+        <summary class="btn btn-primary"><%= @group ? "Group: " + @group.title : "ungrouped" %></summary>
+        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+          <li><%= link_to "Ungrouped", links_path %></li>
+          Other:
+          <% Group.pluck(:title).each do |title| %>
+            <li><%= link_to title, links_path(group: title) %></li>
+          <% end %>
+        </ul>
+      </details>
+
+      <%= link_to "Add link", new_link_path, class: "btn mb-5 ml-2" %>
+    </div>
   </div>
 
   <div class="overflow-x-auto">
