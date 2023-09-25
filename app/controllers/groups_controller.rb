@@ -26,7 +26,10 @@ class GroupsController < ApplicationController
 
   def update
     if @group.update(group_params)
-      redirect_to groups_url, notice: "Group was successfully updated."
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@group)}", @group)}
+        format.html { redirect_to groups_url, notice: "Group was successfully updated." }
+      end
     else
       render :edit, status: :unprocessable_entity
     end

@@ -1,8 +1,8 @@
-<div class="mx-auto md:w-2/3 w-full">
+<%= turbo_frame_tag "modal" do %>
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl mb-5">Editing group</h1>
-    <%= button_to "Delete group", group_path(@group), method: :delete, class: "btn btn-error" %>
+    <%= button_to "Delete group", group_path(@group), method: :delete, data: { turbo_frame: "_top"}, class: "btn btn-error" %>
   </div>
 
   <%= render "form", group: @group %>
-</div>
+<% end %>
