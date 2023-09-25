@@ -13,7 +13,10 @@ class LinksController < ApplicationController
   def create
     @link = Link.new(link_params)
     if @link.save
-      redirect_to links_path, notice: "Link was successfully crated"
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to links_path, notice: "Link was successfully crated" }
+      end
     else
       render :new, status: :unprocessable_entity
     end

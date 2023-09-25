@@ -1,4 +1,4 @@
-<%= form_with(model: link, class: "contents") do |f| %>
+<%= form_with(model: link) do |f| %>
   <%= render "shared/error_messages", resource: link %>
 
   <div class="form-control mb-3">
@@ -17,5 +17,5 @@
   </div>
 
   <%= f.submit "Save", class: "btn btn-primary mt-5" %>
-  <%= link_to "Back to links", links_path, class: "ml-2 btn" %>
+  <%= link_to "Back to links", links_path, class: "ml-2 btn", data: { turbo_frame: "_top" } %>
 <% end %>
