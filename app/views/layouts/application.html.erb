@@ -17,7 +17,16 @@
       <%= render partial: "shared/flash" %>
       <%= yield %>
 
-      <%= turbo_frame_tag "modal" %>
+      <dialog
+        id="form_modal"
+        class="modal"
+        data-controller="modal"
+        data-action="turbo:submit-end->modal#close"
+      >
+        <div class="modal-box">
+          <%= turbo_frame_tag "modal" %>
+        </div>
+      </dialog>
     </main>
   </body>
 </html>

@@ -13,7 +13,9 @@
         </ul>
       </details>
 
-      <%= link_to "Add link", new_link_path, class: "btn mb-5 ml-2", data: { turbo_frame: "modal" } %>
+      <%= link_to "Add link", new_link_path,
+                  data: { turbo_frame: "modal", controller: "modal", action: "modal#open" },
+                  class: "btn mb-5 ml-2" %>
     </div>
   </div>
 
