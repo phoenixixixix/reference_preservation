@@ -27,7 +27,10 @@ class LinksController < ApplicationController
 
   def update
     if @link.update(link_params)
-      redirect_to links_path, notice: "Link was successfully updated"
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@link)}", @link) }
+        format.html { redirect_to links_path, notice: "Link was successfully updated" }
+      end
     else
       render :edit, status: :unprocessable_entity
     end

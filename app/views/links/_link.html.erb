@@ -1,7 +1,7 @@
-<tr>
+<tr id="<%= dom_id(link) %>">
   <td><%= link.id %></td>
   <td><%= link.title %></td>
   <td><%= link.url %></td>
-  <td><%= link_to "edit", edit_link_path(link) %></td>
+  <td><%= link_to "edit", edit_link_path(link), data: { turbo_frame: "modal", controller: "modal", action: "modal#open" } %></td>
   <td><%= button_to "delete", link_path(link), method: :delete %></td>
 </tr>

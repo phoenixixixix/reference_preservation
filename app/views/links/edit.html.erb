@@ -1,4 +1,4 @@
-<div class="mx-auto md:w-2/3 w-full">
+<%= turbo_frame_tag "modal" do %>
   <h1 class="font-bold text-4xl mb-5">Edit link</h1>
   <%= render "form", link: @link %>
-</div>
+<% end %>
