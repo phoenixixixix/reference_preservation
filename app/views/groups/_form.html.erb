@@ -8,6 +8,6 @@
 
   <div class="mt-5">
     <%= f.submit "Save", class: "btn btn-primary" %>
-    <%= link_to "Back to groups", groups_path, class: "ml-2 btn" %>
+    <%= link_to "Back to groups", groups_path, class: "ml-2 btn", data: { turbo_frame: "_top" } %>
   </div>
 <% end %>

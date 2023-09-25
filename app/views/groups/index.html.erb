@@ -1,7 +1,7 @@
 <div class="w-full">
   <div class="flex justify-between">
     <h1 class="font-bold text-4xl">Groups</h1>
-    <%= link_to "Add group", new_group_path, class: "btn mb-5" %>
+    <%= link_to "Add group", new_group_path, class: "btn mb-5", data: { turbo_frame: "modal", controller: "modal", action: "modal#open"} %>
   </div>
 
   <div id="groups" class="min-w-full grid lg:grid-cols-4 sm:grid-cols-3 gap-5">

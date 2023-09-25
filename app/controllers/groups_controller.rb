@@ -14,9 +14,11 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-
     if @group.save
-      redirect_to groups_url, notice: "Group was successfully created."
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend("groups", @group)}
+        format.html { redirect_to groups_url, notice: "Group was successfully created." }
+      end
     else
       render :new, status: :unprocessable_entity
     end
