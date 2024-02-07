@@ -1,9 +1,10 @@
-<div class="w-full">
-  <div class="flex justify-between">
-    <h1 class="font-bold text-4xl">Links List</h1>
-    <div>
+<div class="mb-20">
+  <div class="flex justify-between items-center">
+    <div class="flex items-center">
+      <h1 class="font-bold text-4xl mr-2">Links</h1>
+
       <details class="dropdown">
-        <summary class="btn btn-primary"><%= @group ? "Group: " + @group.title : "ungrouped" %></summary>
+        <summary class="btn btn-sm"><%= @group ? "Group: " + @group.title : "ungrouped" %></summary>
         <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
           <li><%= link_to "Ungrouped", links_path %></li>
           Other:
@@ -12,12 +13,20 @@
           <% end %>
         </ul>
       </details>
+    </div>
 
-      <%= link_to "Add link", new_link_path,
+    <div>
+      <%= link_to "Add link",
+                  new_link_path,
                   data: { turbo_frame: "modal", controller: "modal", action: "modal#open" },
-                  class: "btn mb-5 ml-2" %>
+                  class: "btn btn-sm" %>
+      <%= link_to "Add group",
+                  new_group_path,
+                  data: { turbo_frame: "modal", controller: "modal", action: "modal#open"},
+                  class: "btn btn-sm" %>
     </div>
   </div>
+</div>
 
   <div class="overflow-x-auto">
     <table class="table">
@@ -26,4 +35,3 @@
       </tbody>
     </table>
   </div>
-</div>
