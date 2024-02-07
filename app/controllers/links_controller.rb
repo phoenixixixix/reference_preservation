@@ -3,7 +3,7 @@ class LinksController < ApplicationController
 
   def index
     @group = Group.find_by(title: params[:group])
-    @links = Link.by_group(@group)
+    @links = Link.order(created_at: :asc).by_group(@group)
   end
 
   def new
@@ -42,6 +42,7 @@ class LinksController < ApplicationController
   end
 
   private
+
   def set_link
     @link = Link.find(params[:id])
   end
